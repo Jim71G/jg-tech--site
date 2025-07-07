@@ -1,0 +1,17 @@
+.platform-logos img {
+  height: 40px;
+  width: auto;
+  max-height: 40px;
+  max-width: 80px;
+  object-fit: contain;
+  display: inline-block;
+  transition: transform 0.2s ease;
+  vertical-align: middle;
+}
+img[src*="snapchat-logo.png"] {
+  height: 40px !important;
+  width: auto !important;
+  max-height: 40px !important;
+  max-width: 80px !important;
+  object-fit: contain !important;
+}
