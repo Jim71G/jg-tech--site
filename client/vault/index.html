@@ -34,13 +34,21 @@
   </header>
 
   <main>
-    <h1>Secure Client Vault</h1>
-    <p>Welcome to the Nova Bloom upload portal.</p>
-    <div class="box">
-      <input type="file" name="upload" />
-      <br /><br />
-      <button class="tech-button" onclick="alert('Upload logic coming soon')">Upload</button>
-    </div>
+   <h1>Secure Client Vault</h1>
+<p>Select your project to enter the correct upload space.</p>
+
+<div class="box">
+  <label for="clientSelect">Choose your client vault:</label><br><br>
+  <select id="clientSelect" class="tech-button" style="width: 80%; max-width: 300px;">
+    <option value="">-- Select a client --</option>
+    <option value="nova-agency">Nova Agency</option>
+    <option value="starlight-inc">Starlight Inc.</option>
+    <option value="rosewood-group">Rosewood Group</option>
+  </select>
+  <br><br>
+  <button class="tech-button" onclick="redirectToClientVault()">Enter Vault</button>
+</div>
+
   </main>
 
   <footer>
