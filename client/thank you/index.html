@@ -1,23 +1,44 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
   <meta charset="UTF-8" />
-  <title>Page Title | JG-Tech</title>
+  <title>Upload Complete | JG-Tech Vault</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/assets/styles.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      background-color: #f9f9f9;
+      padding: 3em;
+    }
+    .success-message {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 2em;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+  </style>
 </head>
+
 <body>
   <header>
     <nav>
       <a class="tech-button" href="/client/">Home</a>
       <a class="tech-button" href="/client/vault/">Vault</a>
-      <a class="tech-button" href="/client/thankyou/">Thank You</a>
       <a class="tech-button" href="/client/help/">Help</a>
     </nav>
   </header>
 
   <main>
-    <!-- Page-specific content goes here -->
+    <div class="success-message">
+      <h1>✅ Upload Successful</h1>
+      <p>Thank you for submitting your files. We'll follow up shortly with confirmation or next steps.</p>
+      <br />
+      <button class="tech-button" onclick="window.location.href='/client/'">Return to Home</button>
+    </div>
   </main>
 
   <footer>
@@ -25,15 +46,4 @@
   </footer>
 </body>
 </html>
-<head>
-  <title>Upload Complete | JG-Tech Vault</title>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="/assets/styles.css">
 
-</head>
-<body>
-  <h1>✅ Upload Successful</h1>
-  <p>Thank you for submitting your files. We'll follow up shortly.</p>
-  <a href="/">Return to Homepage</a>
-</body>
-</html>
