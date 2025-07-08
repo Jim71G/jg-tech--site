@@ -54,5 +54,16 @@
   <footer>
     <p style="text-align:center; opacity: 0.6;">© JG-Tech | Nova Bloom Initiative</p>
   </footer>
+  <script>
+  function redirectToClientVault() {
+    const selectedClient = document.getElementById("clientSelect").value;
+    if (selectedClient) {
+      window.location.href = `/client/vault/${selectedClient}/`;
+    } else {
+      alert("Please select a client to continue.");
+    }
+  }
+</script>
+
 </body>
 </html>
