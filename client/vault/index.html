@@ -1,12 +1,28 @@
-/vault/   
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
   <meta charset="UTF-8" />
-  <title>Page Title | JG-Tech</title>
+  <title>Client Vault | JG-Tech</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/assets/styles.css">
+  <style>
+    body { 
+      font-family: 'Segoe UI', sans-serif; 
+      text-align: center; 
+      padding: 2em;
+      background-color: #f9f9f9;
+    }
+    .box { 
+      border: 2px dashed #888; 
+      padding: 2em; 
+      max-width: 400px; 
+      margin: 2em auto;
+      background: #ffffff;
+      border-radius: 8px;
+    }
+  </style>
 </head>
+
 <body>
   <header>
     <nav>
@@ -18,73 +34,17 @@
   </header>
 
   <main>
-    <!-- Page-specific content goes here -->
+    <h1>Secure Client Vault</h1>
+    <p>Welcome to the Nova Bloom upload portal.</p>
+    <div class="box">
+      <input type="file" name="upload" />
+      <br /><br />
+      <button class="tech-button" onclick="alert('Upload logic coming soon')">Upload</button>
+    </div>
   </main>
 
   <footer>
     <p style="text-align:center; opacity: 0.6;">© JG-Tech | Nova Bloom Initiative</p>
   </footer>
-</body>
-</html>
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <head>
-  <meta charset="UTF-8">
-    <link rel="stylesheet" href="/assets/styles.css">
-
-  <title>Vault | JG-Tech</title>
-
-  <style>
-    .tech-button {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(145deg, #0f172a, #1e293b);
-      color: #ffffff;
-      padding: 0.75em 2em;
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      font-size: 1.1em;
-      letter-spacing: 0.05em;
-      transition: all 0.25s ease-in-out;
-      cursor: pointer;
-      outline: none;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .tech-button:hover {
-      background: linear-gradient(145deg, #1e293b, #334155);
-      transform: scale(1.03);
-      box-shadow: 0 0 0 2px #4ade80, 0 0 12px #4ade80aa;
-    }
-
-    .tech-button:active {
-      transform: scale(0.98);
-      box-shadow: 0 0 0 2px #22c55e, inset 0 0 10px #22c55e;
-    }
-  </style>
-</head>
-
-  <title>Client Vault | JG-Tech</title>
-  <style>
-    body { font-family: sans-serif; text-align: center; padding: 2em; }
-    .box { border: 2px dashed #888; padding: 2em; max-width: 400px; margin: 2em auto; }
-    button { padding: 0.5em 1em; font-size: 1em; }
-  </style>
-</head>
-<body>
-  <h1>Secure Client Vault</h1>
-  <p>Welcome to the Nova Bloom upload portal.</p>
-  <div class="box">
-    <button class="tech-button" onclick="window.location.href='/client/vault/'">
-  Upload Now
-</button>
-
-    <input type="file" name="upload" />
-    <br /><br />
-    <button onclick="alert('Upload logic coming soon')">Upload</button>
-  </div>
-  <p><a href="/">← Back to Home</a></p>
 </body>
 </html>
