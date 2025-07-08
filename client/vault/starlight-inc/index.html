@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Starlight Inc. Upload | JG-Tech</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      text-align: center;
+      padding: 2em;
+    }
+    .box {
+      border: 2px dashed #888;
+      padding: 2em;
+      max-width: 400px;
+      margin: 2em auto;
+      background: #ffffff;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a class="tech-button" href="/client/">Home</a>
+      <a class="tech-button" href="/client/vault/">All Vaults</a>
+      <a class="tech-button" href="/client/help/">Help</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Welcome, Starlight Inc.</h1>
+    <p>This is your private file upload space.</p>
+    <div class="box">
+      <input type="file" name="upload" />
+      <br /><br />
+      <button class="tech-button" onclick="goToThankYou()">Upload File</button>
+    </div>
+  </main>
+
+  <footer>
+    <p style="text-align:center; opacity: 0.6;">© JG-Tech | Nova Bloom Initiative</p>
+  </footer>
+
+  <script>
+    function goToThankYou() {
+      window.location.href = '/client/thankyou/';
+    }
+  </script>
+</body>
+</html>
