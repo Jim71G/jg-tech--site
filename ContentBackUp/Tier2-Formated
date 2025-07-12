@@ -1,0 +1,60 @@
+
+
+🟡 Tier 2: Smart Intake + Metadata Automation
+🧩 Summary:
+Tier 2 streamlines file handling by automatically extracting metadata, storing files by client/project/date, and optionally applying branding watermarks. This is your productivity sweet spot.
+
+📋 Workflow Logic:
+python
+def tier2_intake(file, user_id, client_tag):
+    save_path = f"/intake/{client_tag}/{date.today()}/"
+    os.makedirs(save_path, exist_ok=True)
+
+    checksum = hashlib.sha256(file.read()).hexdigest()
+    size_mb = os.path.getsize(file.name) / (1024 * 1024)
+    file.seek(0)  # Reset after checksum read
+
+    metadata = {
+        "client": client_tag,
+        "filename": file.name,
+        "size_MB": round(size_mb, 2),
+        "checksum": checksum,
+        "received": datetime.now().isoformat(),
+        "status": "received"
+    }
+
+    with open(f"{save_path}/metadata.json", "w") as f:
+        json.dump(metadata, f)
+
+    shutil.copy(file.name, save_path)
+🖼️ Watermark Logic
+Visible Watermark (.jpeg-based):
+
+python
+def apply_visible_watermark(image_path, watermark_path, output_path):
+    base = Image.open(image_path).convert("RGBA")
+    mark = Image.open(watermark_path).convert("RGBA")
+    mark = mark.resize((150, 75))  # scale for placement
+    base.paste(mark, (base.width - mark.width - 10, base.height - mark.height - 10), mark)
+    base.save(output_path)
+Invisible Watermark: (metadata embedded)
+
+python
+def embed_invisible_watermark(image_path, metadata_dict):
+    from PIL import PngImagePlugin
+
+    im = Image.open(image_path)
+    meta = PngImagePlugin.PngInfo()
+    for key, val in metadata_dict.items():
+        meta.add_text(key, str(val))
+    im.save(image_path.replace(".jpeg", "_embed.jpeg"), "PNG", pnginfo=meta)
+📝 Notes:
+Watermark files stored in /watermarks/visible/ and /watermarks/invisible/
+
+Assets named using _wm (visible) or _embed (invisible) suffixes
+
+Review metadata.json before branding
+
+This tier supports light automation but allows human touchups
+
+📁 Printing tip: Save this section as "JG-Tech Tier 2 Workflow – Smart Intake" in your physical backup binder.

@@ -1,0 +1,80 @@
+
+
+🟣 À la Carte Services Module
+🧩 Summary:
+This section holds flexible, standalone functions that can be bolted onto any tier — or used independently. Includes media conversions, specialty branding, archival, and retro-format handling.
+
+🎥 MP4 Video Watermarking (Visible Overlay)
+bash
+# Requires: ffmpeg
+ffmpeg -i input.mp4 -i watermark.png \
+-filter_complex "overlay=W-w-10:H-h-10" \
+output_wm.mp4
+overlay=W-w-10:H-h-10 = bottom-right position
+
+Input watermark must be PNG with transparency
+
+Result: _wm.mp4 file stored alongside original
+
+🧠 MP4 Metadata Injection (Invisible Tagging)
+bash
+ffmpeg -i input.mp4 \
+-metadata title="JG-Tech – ClientName" \
+-metadata author="Jim G." \
+output_embed.mp4
+Useful for silent tagging and branding
+
+Visible only in media info tools
+
+📄 PDF Watermarking (Visible Text Stamp)
+python
+from PyPDF2 import PdfReader, PdfWriter
+from PyPDF2.generic import RectangleObject
+
+def stamp_pdf(input_file, watermark_text, output_file):
+    reader = PdfReader(input_file)
+    writer = PdfWriter()
+
+    for page in reader.pages:
+        page.merge_text(
+            watermark_text,
+            position=RectangleObject([400, 20, 550, 60]),  # bottom corner
+            opacity=0.5,
+            font_size=10
+        )
+        writer.add_page(page)
+
+    with open(output_file, "wb") as f:
+        writer.write(f)
+🗂️ Legacy File Conversion (Sample Snippet)
+python
+def convert_txt_to_pdf(txt_path, output_path):
+    from fpdf import FPDF
+
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+
+    with open(txt_path, "r") as f:
+        for line in f:
+            pdf.cell(200, 10, txt=line.strip(), ln=True)
+
+    pdf.output(output_path)
+📦 One-Off File Sorter by Extension (Quick Utility)
+python
+def sort_files_by_extension(directory):
+    for file in os.listdir(directory):
+        ext = os.path.splitext(file)[1].lower().replace('.', '')
+        ext_path = os.path.join(directory, ext)
+        os.makedirs(ext_path, exist_ok=True)
+        shutil.move(os.path.join(directory, file), os.path.join(ext_path, file))
+Instantly creates subfolders like /jpeg, /mp4, /pdf
+
+Use post-upload or for archival cleanup
+
+📝 Notes:
+À la carte tools are modular — insert into any tier as needed
+
+Suffix each processed file (_wm, _embed, _conv, _tag) for clarity
+
+Ideal for isolated jobs, proofs of concept, or client-specific requests

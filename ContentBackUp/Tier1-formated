@@ -1,0 +1,80 @@
+
+
+
+🗂️ JG-Tech Offline Blueprint: Tiered Service Workflows
+Each tier will be laid out as its own printable module:
+
+🔹 Section Structure:
+Tier Title & Summary
+
+Workflow Description
+
+Code Snippets (functional logic)
+
+Watermark Logic (visible/invisible)
+
+Asset Handling Notes
+
+Sidebars for expansion ideas (video, PDF, automation, etc.)
+
+
+🟢 Tier 1: Basic Intake + Manual Review
+🧩 Summary:
+This tier handles simple file submissions with date-tagged storage. No automation beyond directory creation. Files await human inspection before any action. Ideal for cautious clients or legacy workflows.
+
+📋 Workflow Logic:
+python
+def tier1_intake(file, user_id):
+    save_path = f"/intake/{user_id}/{date.today()}/"
+    os.makedirs(save_path, exist_ok=True)
+    shutil.copy(file, save_path)
+
+    metadata = {
+        "user_id": user_id,
+        "filename": file.name,
+        "received": datetime.now().isoformat(),
+        "status": "pending_manual_review"
+    }
+
+    with open(f"{save_path}/metadata.json", "w") as f:
+        json.dump(metadata, f)
+🖼️ Watermark Handling (Optional)
+Files in this tier can be manually watermarked after review. Not automated.
+
+Visible watermark option:
+
+Load watermark using PIL
+
+Apply manually after review
+
+python
+def apply_manual_watermark(image_path, watermark_path, output_path):
+    base = Image.open(image_path).convert("RGBA")
+    mark = Image.open(watermark_path).convert("RGBA")
+    mark = mark.resize((150, 75))
+    base.paste(mark, (base.width - mark.width - 10, base.height - mark.height - 10), mark)
+    base.save(output_path)
+📝 Notes:
+Storage folders are simple and client-specific
+
+No sorting or validation occurs until manual inspection
+
+Ideal for sensitive material, discovery assets, or legacy upload clients
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Add human-readable watermark as final step if needed

@@ -1,0 +1,67 @@
+
+
+🧠📁 Tier 3 brings high-level sorting, integrity checks, metadata embedding, and escalation protocols — it’s your system’s brain + spine.
+
+Let’s lay out the section cleanly so it prints beautifully and stores with confidence in your hard-copy backup binder.
+
+🔴 Tier 3: Auto-Sorting + Validation + Tier Escalation
+🧩 Summary:
+Tier 3 automatically categorizes files by type (image, video, audio, etc.), verifies integrity via checksum, embeds watermarks, and escalates any failures to manual review. Ideal for high-volume workflows and client reliability.
+
+📋 Workflow Logic:
+python
+def tier3_intake(file, user_id, project_id):
+    file_type = mimetypes.guess_type(file.name)[0] or "unknown"
+    base_path = f"/intake/{project_id}/{file_type}/{date.today()}/"
+    os.makedirs(base_path, exist_ok=True)
+
+    # Save original
+    original_file = f"{base_path}/{file.name}"
+    shutil.copy(file.name, original_file)
+
+    # Compute checksum
+    checksum = hashlib.sha256(open(file.name, "rb").read()).hexdigest()
+
+    # Create metadata
+    metadata = {
+        "user": user_id,
+        "project": project_id,
+        "filename": file.name,
+        "file_type": file_type,
+        "checksum": checksum,
+        "received": datetime.now().isoformat(),
+        "status": "validated"
+    }
+
+    if not validate_checksum(checksum):
+        metadata["status"] = "validation_failed"
+        escalate_to_manual_review(file.name)
+
+    with open(f"{base_path}/audit.json", "w") as f:
+        json.dump(metadata, f)
+🖼️ Watermark Logic (Visible + Invisible)
+✅ Visible (for JPEG):
+python
+def apply_visible_watermark(image_path, watermark_path, output_path):
+    base = Image.open(image_path).convert("RGBA")
+    mark = Image.open(watermark_path).convert("RGBA")
+    mark = mark.resize((200, 100))
+    base.paste(mark, (base.width - mark.width - 20, base.height - mark.height - 20), mark)
+    base.save(output_path)
+✅ Invisible (embedded metadata):
+python
+def embed_invisible_watermark(image_path, metadata_dict):
+    from PIL import PngImagePlugin
+    im = Image.open(image_path)
+    meta = PngImagePlugin.PngInfo()
+    for key, val in metadata_dict.items():
+        meta.add_text(key, str(val))
+    im.save(image_path.replace(".jpeg", "_embed.jpeg"), "PNG", pnginfo=meta)
+📝 Notes:
+Uses folder structure: /intake/{project}/{file_type}/{date}/
+
+Marks file copies using suffixes like _wm.jpeg or _embed.jpeg
+
+Failsafe trigger sends flagged assets back to Tier 1 for manual review
+
+All activity logged in audit.json for rollback or client proof

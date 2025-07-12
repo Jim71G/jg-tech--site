@@ -1,0 +1,64 @@
+A Records :
+
+[0] Name : jg-tech.org | ttl: 300 | ip: 185.199.109.153
+[1] Name : jg-tech.org | ttl: 300 | ip: 185.199.111.153
+[2] Name : jg-tech.org | ttl: 300 | ip: 185.199.110.153
+[3] Name : jg-tech.org | ttl: 300 | ip: 185.199.108.153
+
+------------------
+
+AAAA Records: None
+
+------------------
+
+CNAME Records: None
+
+------------------
+
+MX Records :
+
+[0] Name : jg-tech.org | ttl: 3600 | ip: 17.57.154.33 | mx: mx02.mail.icloud.com. | preference: 10
+[1] Name : jg-tech.org | ttl: 3600 | ip: 17.42.251.62 | mx: mx01.mail.icloud.com. | preference: 10
+
+------------------
+
+NS Records :
+
+[0] Name : jg-tech.org | ttl: 21600 | value: rex.ns.cloudflare.com.
+[1] Name : jg-tech.org | ttl: 21600 | value: alina.ns.cloudflare.com.
+
+------------------
+
+PTR Records: None
+
+------------------
+
+SRV Records: None
+
+------------------
+
+SOA Records :
+
+[0] Name : jg-tech.org | ttl: 1800 | mname: alina.ns.cloudflare.com. | rname: dns.cloudflare.com. | serial: 2377342793 | refresh: 10000 | retry: 2400 | expire: 604800
+
+------------------
+
+TXT Records :
+
+[0] Name : jg-tech.org | ttl: "3600" | value: "apple-domain=7YTgYiXp7NtufVl8"
+[1] Name : jg-tech.org | ttl: "3600" | value: "protonmail-verification=1df22edfdef475094b223e6236c61599e713c894"
+
+------------------
+
+CAA Records: None
+
+------------------
+
+DS Records: None
+
+------------------
+
+DNSKEY Records: None
+
+------------------
+

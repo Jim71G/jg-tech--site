@@ -1,0 +1,115 @@
+
+
+🖼️ Watermark Integration Overview
+🔹 What We’ll Do:
+Add watermark logic during or after file intake
+
+Pull client-specific watermark design from a stored location
+
+Use image or video processing libraries to apply the mark
+
+💡 Code Add-On: Watermarking Function (Tier 2 or 3)
+Here’s a simplified Python-style snippet to illustrate adding a watermark to an image after intake:
+
+python
+from PIL import Image, ImageDraw, ImageFont
+
+def apply_watermark(image_path, watermark_path, output_path):
+    base = Image.open(image_path).convert("RGBA")
+    mark = Image.open(watermark_path).convert("RGBA")
+
+    # Resize watermark if needed and position it
+    mark = mark.resize((200, 100))
+    base.paste(mark, (base.width - mark.width - 20, base.height - mark.height - 20), mark)
+
+    base.save(output_path)
+🔹 How to Use It in Intake Flow:
+python
+# After saving file to intake folder
+output_file = f"{save_path}/{file.name.replace('.','_wm.')}"
+apply_watermark(f"{save_path}/{file.name}", f"/watermarks/{client_tag}.png", output_file)
+🗂️ Watermark Design Storage
+Save client-selected watermark designs in /watermarks/{client_name}.png
+
+Add a lookup table to match clients to designs
+
+Optional: Add watermark preview/upload tool for client customization
+
+🖼️ JPEG Watermark Logic for Tier 2 & Tier 3
+🔹 Folder Convention
+Store client watermarks like so:
+
+/watermarks/visible/{client_name}.jpeg
+/watermarks/invisible/{client_name}_embed.jpeg
+Visible = layered graphic Invisible = metadata-embedded or semi-transparent
+
+🔹 Tier 2: Simple Watermark Application
+python
+def apply_visible_watermark(image_path, watermark_path, output_path):
+    from PIL import Image
+
+    base = Image.open(image_path).convert("RGBA")
+    mark = Image.open(watermark_path).convert("RGBA")
+
+    mark = mark.resize((150, 75))  # Scaled size
+    base.paste(mark, (base.width - mark.width - 10, base.height - mark.height - 10), mark)
+    base.save(output_path)
+Optional invisible embed (placeholder only):
+
+python
+def embed_invisible_watermark(image_path, metadata):
+    from PIL import PngImagePlugin
+
+    im = Image.open(image_path)
+    meta = PngImagePlugin.PngInfo()
+    meta.add_text("Client", metadata["client"])
+    meta.add_text("Checksum", metadata["checksum"])
+    im.save(image_path.replace(".jpeg", "_embed.jpeg"), "PNG", pnginfo=meta)
+🔴 Tier 3: Auto-Sort + Watermark + Validation
+python
+def tier3_watermark_pipeline(file, client_tag):
+    file_type = mimetypes.guess_type(file.name)[0]
+    save_path = f"/intake/{client_tag}/{file_type}/{date.today()}/"
+    os.makedirs(save_path, exist_ok=True)
+
+    # Save original
+    original = f"{save_path}/{file.name}"
+    shutil.copy(file.name, original)
+
+    # Apply watermark
+    wm_visible = f"/watermarks/visible/{client_tag}.jpeg"
+    wm_output = original.replace(".jpeg", "_wm.jpeg")
+    apply_visible_watermark(original, wm_visible, wm_output)
+
+    # Embed metadata invisibly
+    embed_invisible_watermark(wm_output, {"client": client_tag, "checksum": generate_checksum(file)})
+🎥 Notes for MP4 or Motion Files
+You’re right — file extension renaming (_wm.mp4) works perfectly for identifying processed assets.
+
+📝 Watermarking MP4s (Future Expansion)
+Use ffmpeg to layer watermark image or text onto video
+
+Example (visible watermark):
+
+bash
+ffmpeg -i input.mp4 -i watermark.png -filter_complex "overlay=10:10" output_wm.mp4
+For invisible watermarking:
+
+Embed metadata (title/author/client info)
+
+Use ffmpeg:
+
+bash
+ffmpeg -i input.mp4 -metadata title="JG-Tech – ClientName" output_embed.mp4
+🧾 Side Notes for Printed Version
+Use _wm for visibly watermarked files
+
+Use _embed or metadata flags for invisible watermark assets
+
+Store original, visible, and invisible copies in same /intake tier folder
+
+Add checksum validation before watermarking for integrity logging
+
+For MP4: ffmpeg overlay + metadata injection
+
+For PDFs: watermark using PyPDF2 or pdf-stamper
